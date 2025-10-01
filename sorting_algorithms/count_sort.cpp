@@ -22,6 +22,7 @@ void countSort(int arr[], int n){
             freq[i]--;
         }
 }
+
     for(int i=0; i<n; i++){
         cout<<arr[i]<<" ";
     }
