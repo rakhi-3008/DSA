@@ -10,6 +10,14 @@ public:
         data=val;
         next=NULL;
     }   
+
+    ~Node(){
+        // cout<<"node destructor for data="<<data<<endl;
+        if(next!=NULL){
+            delete next;
+            next= NULL;
+        }
+    }
 };
 
 class List{
@@ -20,6 +28,14 @@ public:
     List(){
         head=NULL;
         tail=NULL;
+    }
+
+    ~List(){
+        // cout<<"list destructor"<<endl;
+        if(head!=NULL){
+            delete head;
+            head=NULL;
+        }
     }
 
     void push_front(int val){
@@ -68,6 +84,76 @@ public:
         newNode->next=temp->next;
         temp->next=newNode;
     }
+
+    void pop_front(){
+        if(head==NULL){
+            cout<<"linked list is empty"<<endl;
+            return;
+        }
+        Node* temp=head;
+        head=head->next;
+        temp->next=NULL;
+        delete temp;
+    }
+
+    void pop_back(){
+        Node* temp=head;
+        while(temp->next->next!=NULL){
+            temp=temp->next;
+        }
+        temp->next=NULL;
+        delete tail;
+        tail=temp;
+    }
+
+    int searchItr(int key){
+        Node* temp=head;
+        int idx=0;
+        while(temp!=NULL){
+            if(temp->data==key){
+                return idx;
+            }
+            temp=temp->next;
+            idx++;
+        }
+        return -1;
+    }
+
+    int helper(Node* temp, int key){
+        if(temp==NULL){
+            return -1;
+        }
+
+        if(temp->data==key){
+            return 0;
+        }
+
+        int idx=helper(temp->next, key);
+        if(idx==-1){
+            return -1;
+        }
+        return idx+1;
+    }
+
+    int searchRec(int key){
+        return helper(head, key);
+    }
+
+    void reverse(){
+        Node* prev=NULL;
+        Node* curr=head;
+        Node* next=NULL;
+        tail=head;
+        
+        while(curr!=NULL){
+            next=curr->next;
+            curr->next=prev;
+
+            prev=curr;
+            curr=next;
+        }
+        head=prev;
+    }
 };
 
 int main(){
@@ -83,6 +169,18 @@ int main(){
 
     ll.insert(100, 2);
     ll.printList(); //1->2->100->3->4->5->NULL
+
+    ll.pop_front();
+    ll.printList();//2->100->3->4->5->NULL
+
+    ll.pop_back();
+    ll.printList();//2->100->3->4->NULL
+
+    cout<<ll.searchItr(4)<<endl;
+    cout<<ll.searchRec(3)<<endl;;
+
+    ll.reverse();
+    ll.printList();
     
     return 0;
 }
