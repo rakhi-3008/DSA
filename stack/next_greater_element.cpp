@@ -21,6 +21,7 @@ void nextGreater(vector<int> arr, vector<int> ans){
         }
         s.push(curr);
     }
+    
     for(int i=0; i<ans.size(); i++){
         cout<<ans[i]<<" ";
     }
