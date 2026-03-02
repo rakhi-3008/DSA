@@ -34,7 +34,6 @@ int main(){
         root=insert(root, val);
         n--;
     }
-    root=insert(root, val);
 
     cout<<"data entered successfully !";
 
