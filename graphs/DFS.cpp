@@ -30,17 +30,23 @@ public:
         }
     }
 
-    void DFS(int u, vector<bool> &visited){     //O(V+E)
+    void DFShelper(int u, vector<bool> &visited){
         visited[u]=true;
         cout<<u<<" ";
 
         list<int> neighbors = l[u];
         for(int v : neighbors){
             if(!visited[v]){
-                DFS(v, visited);
+                DFShelper(v, visited);
             }
-        }     
+        } 
     }
+
+    void DFS(){     //O(V+E)
+        vector<bool> visited(V, false);
+        DFShelper(0, visited);
+    }
+
 };
 
 int main(){
@@ -57,7 +63,7 @@ int main(){
 
     vector<bool> visited(7, false);
 
-    graph.DFS(0, visited);
+    graph.DFS();
 
     return 0;
 }
