@@ -2,7 +2,7 @@
 #include<vector>
 using namespace std;
 //using recursion
-int fib(int n){     //O(2^n)
+int fibRec(int n){     //O(2^n)
     if(n==0 || n==1){
         return n;
     }
